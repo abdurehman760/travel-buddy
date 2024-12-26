@@ -5,25 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Buddy</title>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #fafafa;
+      
+      margin: 0;
     }
 
     .container {
       background-color: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 100%;
-     
-      overflow: hidden;
+      
     }
 
     h1 {
@@ -45,12 +49,13 @@
       width: 100%;
       padding: 14px;
       margin-bottom: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #0011ff;
       border-radius: 8px;
       font-size: 16px;
       color: #555;
       background-color: #fafafa;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
     }
 
     input:focus, select:focus {
@@ -88,7 +93,7 @@
       overflow-y: auto;
       position: absolute;
       z-index: 1000;
-      width: 100%;
+      width: calc(100% - 2px);
       border-radius: 8px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       margin-top: -10px;
@@ -135,11 +140,10 @@
 
       <button type="submit">Submit</button>
     </form>
+
+    
     <div class="response" id="response"></div>
   </div>
-</body>
-</html>
-
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -278,7 +282,6 @@
   'Khuzdar', 'Pasni', 'Ormara', 'Gwadar', 'Nushki', 'Dera Ismail Khan', 'Hangu', 'Kurram Agency', 'Bajaur', 'Khyber Agency', 
 ];
 
-
       destinationInput.addEventListener('input', function() {
         const query = destinationInput.value.toLowerCase();
         destinationSuggestionsBox.innerHTML = '';
@@ -305,31 +308,38 @@
           destinationSuggestionsBox.innerHTML = '';
         }
       });
-    });
 
-    document.getElementById('travelForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const destination = document.getElementById('destination').value;
-      const startDate = document.getElementById('startDate').value;
-      const endDate = document.getElementById('endDate').value;
-      const interests = document.getElementById('interests').value;
+      const eventSource = new EventSource('http://localhost:3000/langchain/events');
+      eventSource.onmessage = function(event) {
+        const responseDiv = document.getElementById('response');
+        const travelForm = document.getElementById('travelForm');
+        travelForm.style.display = 'none';
+        responseDiv.innerHTML = event.data;
+      };
 
-      const dates = `${new Date(startDate).toLocaleString('default', { month: 'short' })} ${new Date(startDate).getDate()}-${new Date(endDate).getDate()}`;
+      document.getElementById('travelForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const destination = document.getElementById('destination').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const interests = document.getElementById('interests').value;
 
-      try {
-        const response = await fetch('http://localhost:3000/langchain/process', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ destination, dates, interests })
-        });
-        const result = await response.text();
-        document.getElementById('response').innerHTML = result;
-      } catch (error) {
-        console.error('Error processing query:', error);
-        document.getElementById('response').textContent = 'An error occurred while processing your request.';
-      }
+        const dates = `${new Date(startDate).toLocaleString('default', { month: 'short' })} ${new Date(startDate).getDate()}-${new Date(endDate).getDate()}`;
+
+        try {
+          await fetch('http://localhost:3000/langchain/process', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ destination, dates, interests })
+          });
+        } catch (error) {
+          console.error('Error processing query:', error);
+          document.getElementById('response').textContent = 'An error occurred while processing your request.';
+        }
+      });
+      
     });
   </script>
 </body>

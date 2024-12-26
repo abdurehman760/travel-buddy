@@ -39,7 +39,7 @@ export class LangChainService {
     - Use <h2> for the day headers (e.g., Day 1, Day 2, etc.)
     - Use <ul> and <li> tags for listing activities or details for each day.
     - For weather information, use a <table> with columns for Weather, Max Temperature, Min Temperature, Sunrise, Sunset, and Daylight Duration.
-    - Ensure the HTML is properly structured to display as an easily readable itinerary.
+    - Ensure the HTML is properly structured to display as an easily readable itinerary,add hyperlinks to p.
 
     Style the page according to the destination's vibe, enhancing the visual appeal of the itinerary. Ensure the style complements the mood of the destination and provides an engaging experience for the user.and also dont say things other than itinerary.  
 `;
