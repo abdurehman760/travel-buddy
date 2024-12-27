@@ -21,6 +21,9 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "frontend/**/*.js" // Add this line to include all JavaScript files in the frontend directory
+  ],
   "exclude": ["node_modules", "dist"]
 }

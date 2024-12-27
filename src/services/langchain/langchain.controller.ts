@@ -3,7 +3,6 @@ import { LangChainService } from './langchain.service';
 import { UserService } from '../../user/user.service';
 import { CreateUserDto } from '../../common/dto/create-user.dto';
 import { Observable, Subject } from 'rxjs';
-import { interval } from 'rxjs';
 
 @Controller('langchain')
 export class LangChainController {
@@ -36,7 +35,7 @@ export class LangChainController {
     this.eventsSubject.next({ data: 'Compiling weather data...' });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    this.eventsSubject.next({ data: 'Generating travel suggestions...' });
+this.eventsSubject.next({ data: '<div class="response-message">Generating travel suggestions...</div>' });
 
     const result = await this.langChainService.processUserPreferences(userPreferences);
 

@@ -3,10 +3,10 @@ import { HttpModule } from '@nestjs/axios';
 import { LangChainService } from './langchain.service';
 import { LangChainController } from './langchain.controller';
 import { OpenAIService } from '../openai.service';
-import { UserModule } from '../../user/user.module'; // Import UserModule
+import { UserModule } from '../../user/user.module'; 
 
 @Module({
-  imports: [HttpModule, UserModule], // Include UserModule
+  imports: [HttpModule, UserModule],
   providers: [LangChainService, OpenAIService],
   controllers: [LangChainController],
 })

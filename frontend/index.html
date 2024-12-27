@@ -1,346 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Buddy</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f7fc;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      margin: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Buddy</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="titleTravelBuddy">Travel Buddy</h1>
+      <div class="form-container">
+        <form id="travelForm">
+          <label for="destination">Destination:</label>
+          <input
+            type="text"
+            id="destination"
+            name="destination"
+            placeholder="Enter your destination"
+            autocomplete="on"
+            required
+          />
+          <div
+            id="destinationSuggestions"
+            class="autocomplete-suggestions"
+          ></div>
 
-    .container {
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      
-    }
+          <div class="date-inputs">
+            <div>
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" name="startDate" required />
+            </div>
 
-    h1 {
-      text-align: center;
-      color: #4caf50;
-      font-size: 28px;
-      margin-bottom: 24px;
-    }
+            <div>
+              <label for="endDate">End Date:</label>
+              <input type="date" id="endDate" name="endDate" required />
+            </div>
+          </div>
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #555;
-      font-size: 14px;
-    }
+          <label for="interests">Interests:</label>
+          <input
+            type="text"
+            id="interests"
+            name="interests"
+            placeholder="Enter your interests (e.g., Art, Food)"
+            autocomplete="on"
+            required
+          />
+          <div id="interestSuggestions" class="autocomplete-suggestions"></div>
 
-    input, select {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 16px;
-      border: 1px solid #0011ff;
-      border-radius: 8px;
-      font-size: 16px;
-      color: #555;
-      background-color: #fafafa;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-sizing: border-box;
-    }
+          <button type="submit" class="continue-application">
+            <div>
+              <div class="pencil"></div>
+              <div class="folder">
+                <div class="top">
+                  <svg viewBox="0 0 24 27">
+                    <path
+                      d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="paper"></div>
+              </div>
+            </div>
+            Generate Itinerary
+          </button>
+        </form>
+      </div>
 
-    input:focus, select:focus {
-      border-color: #4caf50;
-      box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
-      outline: none;
-    }
+      <div class="response" id="response"></div>
+    </div>
 
-    input::placeholder {
-      color: #bbb;
-    }
-
-    button {
-      width: 100%;
-      padding: 16px;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #388e3c;
-    }
-
-    
-
-    .autocomplete-suggestions {
-      border: 1px solid #ccc;
-      background: #fff;
-      max-height: 150px;
-      overflow-y: auto;
-      position: absolute;
-      z-index: 1000;
-      width: calc(100% - 2px);
-      border-radius: 8px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      margin-top: -10px;
-    }
-
-    .autocomplete-suggestion {
-      padding: 12px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-    }
-
-    .autocomplete-suggestion:hover {
-      background-color: #f0f0f0;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 30px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Travel Buddy</h1>
-    <form id="travelForm">
-      <label for="destination">Destination:</label>
-      <input type="text" id="destination" name="destination" placeholder="Enter your destination" autocomplete="on" required>
-      <div id="destinationSuggestions" class="autocomplete-suggestions"></div>
-
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="startDate" required>
-
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="endDate" required>
-
-      <label for="interests">Interests:</label>
-      <input type="text" id="interests" name="interests" placeholder="Enter your interests (e.g., Art, Food)" autocomplete="on" required>
-      <div id="interestSuggestions" class="autocomplete-suggestions"></div>
-
-      <button type="submit">Submit</button>
-    </form>
-
-    
-    <div class="response" id="response"></div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const startDateInput = document.getElementById('startDate');
-      const endDateInput = document.getElementById('endDate');
-      const today = new Date().toISOString().split('T')[0];
-      const maxDate = new Date();
-      maxDate.setDate(maxDate.getDate() + 7);
-      const maxDateString = maxDate.toISOString().split('T')[0];
-
-      startDateInput.setAttribute('min', today);
-      startDateInput.setAttribute('max', maxDateString);
-      endDateInput.setAttribute('min', today);
-      endDateInput.setAttribute('max', maxDateString);
-
-      startDateInput.addEventListener('change', function() {
-        endDateInput.setAttribute('min', startDateInput.value);
-      });
-
-      const interestsInput = document.getElementById('interests');
-      const interestSuggestionsBox = document.getElementById('interestSuggestions');
-      const interests = [
-  'River', 'Beach', 'Mountain', 'Forest', 'Desert', 'Waterfall', 'Cave', 'National Park', 'Lake', 
-  'Island', 'Hiking Trail', 'Museum', 'Art Gallery', 'Historical Place', 'Cathedral', 'Castle', 'Palace', 
-  'Ruins', 'Archaeological Site', 'Aquarium', 'Zoo', 'Botanical Garden', 'Botanic Park', 'Wildlife Reserve', 
-  'Botanical Garden', 'Safari', 'Jungle', 'Monument', 'Statue', 'Park', 'City Square', 'Town Square', 'Amusement Park', 
-  'Shopping Mall', 'Luxury Hotel', 'Hostel', 'Boutique Hotel', 'Restaurant', 'Cafe', 'Food Market', 'Street Food', 
-  'Fine Dining', 'Food Stall', 'Wine Bar', 'Cocktail Bar', 'Brewery', 'Bakery', 'Ice Cream Parlor', 'Tea House', 
-  'Coffee Shop', 'Patio', 'Wine Tasting', 'Jazz Bar', 'Nightclub', 'Concert Hall', 'Theater', 'Opera House', 
-  'Performance Venue', 'Stadium', 'Sports Complex', 'Gym', 'Yoga Studio', 'Spa', 'Massage Parlor', 'Beauty Salon', 
-  'Boutique Shop', 'Antique Shop', 'Souvenir Shop', 'Local Markets', 'Street Vendor', 'Craft Shop', 'Bookstore', 
-  'Souvenir Shop', 'Handicraft Store', 'Farmer\'s Market', 'Artisan Shop', 'Leather Goods Shop', 'Jewelry Shop', 
-  'Clothing Boutique', 'Technology Store', 'Gift Shop', 'Stationery Shop', 'Florist', 'Toy Store', 'Game Shop', 
-  'Swimming Pool', 'Spa Resort', 'Tennis Court', 'Golf Course', 'Ski Resort', 'Mountain Resort', 'Water Park', 
-  'Cultural Center', 'Craft Museum', 'City Tour', 'Sightseeing Tour', 'Helicopter Tour', 'Bicycle Tour', 
-  'Walking Tour', 'Boat Tour', 'River Cruise', 'Historical Walking Tour', 'Photography Tour', 'Food Tour', 
-  'Cooking Class', 'Fishing Trip', 'Hunting Trip', 'Sailing', 'Boat Rental', 'Jet Ski', 'Horseback Riding', 
-  'Camel Ride', 'Paragliding', 'Skydiving', 'Hot Air Balloon Ride', 'Scuba Diving', 'Snorkeling', 'Kayaking', 
-  'Surfing', 'Windsurfing', 'Rock Climbing', 'Zip Lining', 'Fishing Spot', 'Canoeing', 'Rowing', 'Golfing', 
-  'Yoga Retreat', 'Spa Treatment', 'Relaxation', 'Mindfulness', 'Cultural Festival', 'Art Festival', 
-  'Music Festival', 'Food Festival', 'Literary Festival', 'Film Festival', 'Craft Fair', 'Holiday Market', 
-  'Charity Event', 'Volunteer Experience', 'Local Village', 'Agricultural Tour', 'Food Farming Tour', 'Wine Harvest Tour'
-];
-      interestsInput.addEventListener('input', function() {
-        const query = interestsInput.value.toLowerCase();
-        interestSuggestionsBox.innerHTML = '';
-        if (query) {
-          const filteredInterests = interests.filter(interest => interest.toLowerCase().includes(query));
-          filteredInterests.forEach(interest => {
-            const suggestion = document.createElement('div');
-            suggestion.classList.add('autocomplete-suggestion');
-            suggestion.textContent = interest;
-            suggestion.addEventListener('click', function() {
-              interestsInput.value = interest;
-              interestSuggestionsBox.innerHTML = '';
-            });
-            interestSuggestionsBox.appendChild(suggestion);
-          });
-        }
-      });
-
-      const destinationInput = document.getElementById('destination');
-      const destinationSuggestionsBox = document.getElementById('destinationSuggestions');
-      const destinations = [
-  'Paris', 'New York', 'Tokyo', 'London', 'Sydney', 'Rome', 'Dubai', 'Barcelona', 'Istanbul', 'Bangkok',
-  'Los Angeles', 'Madrid', 'Milan', 'Seoul', 'Beijing', 'San Francisco', 'Lisbon', 'Amsterdam', 'Copenhagen', 'Berlin',
-  'Prague', 'Stockholm', 'Vienna', 'Singapore', 'Cape Town', 'Hawaii', 'Sydney', 'Athens', 'Zurich', 'Rio de Janeiro',
-  'Mexico City', 'Dubai', 'Dubai', 'Moscow', 'Bangkok', 'Dubai', 'Lagos', 'Dubai', 'Vienna', 'Oslo', 'Helsinki', 'Paris',
-  'Cairo', 'Los Angeles', 'Shanghai', 'Rome', 'San Francisco', 'San Diego', 'Chicago', 'Montreal', 'Warsaw', 'Dublin', 
-  'Stockholm', 'Bali', 'Dubai', 'Buenos Aires', 'Los Angeles', 'Toronto', 'Athens', 'Zanzibar', 'Nairobi', 'Vancouver',
-  'Seoul', 'Florence', 'Brussels', 'Zurich', 'Dubai', 'Chennai', 'Bangalore', 'Dublin', 'Auckland', 'Osaka', 'London',
-  'Berlin', 'Bangkok', 'Cape Town', 'Rome', 'Lisbon', 'Rio de Janeiro', 'Shanghai', 'Mexico City', 'Lagos', 'Athens', 
-  'Paris', 'Venice', 'Malta', 'Manchester', 'Edinburgh', 'Perth', 'Calcutta', 'Kuala Lumpur', 'Pune', 'Istanbul', 
-  'Chennai', 'Phuket', 'Amman', 'Moscow', 'Jakarta', 'New Orleans', 'Amsterdam', 'Paris', 'Sydney', 'Wellington',
-  'Seoul', 'Bucharest', 'Tokyo', 'Bangkok', 'San Francisco', 'Mumbai', 'Wellington', 'Mexico City', 'Bangalore',
-  'Washington DC', 'Las Vegas', 'Lagos', 'Dallas', 'Munich', 'Hong Kong', 'Rio de Janeiro', 'Cape Town', 'Santiago',
-  'Dublin', 'Zurich', 'Copenhagen', 'Buenos Aires', 'Los Angeles', 'Dublin', 'Oslo', 'Seoul', 'London', 'Paris',
-  'Tokyo', 'Berlin', 'Milan', 'Madrid', 'Singapore', 'Hong Kong', 'Kuala Lumpur', 'Stockholm', 'Buenos Aires',
-  'Zanzibar', 'Seattle', 'New York City', 'New Delhi', 'Florence', 'Amman', 'Vancouver', 'Toronto', 'Dubai', 
-  'Los Angeles', 'Mexico City', 'Helsinki', 'Cairo', 'Rio de Janeiro', 'Madrid', 'Sydney', 'Washington DC', 
-  'Lisbon', 'Miami', 'Bangkok', 'Sofia', 'Cape Town', 'Paris', 'Manchester', 'Vienna', 'Oslo', 'Shanghai', 
-  'Warsaw', 'Prague', 'Rio de Janeiro', 'London', 'Toronto', 'Vancouver', 'New York', 'Amsterdam', 'Berlin', 'Seoul', 
-  'Milan', 'Hong Kong', 'Madrid', 'San Diego', 'Los Angeles', 'San Francisco', 'Stockholm', 'New York City', 'Vancouver', 
-  'Osaka', 'Singapore', 'Paris', 'Paris', 'Los Angeles', 'Barcelona', 'Cape Town', 'Florence', 'Kuala Lumpur',
-  'Rome', 'Bucharest', 'Dubai', 'Sydney', 'Rome', 'Jakarta', 'Barcelona', 'London', 'New York', 'Moscow',
-  'Chicago', 'Athens', 'Dublin', 'Dubai', 'Milan', 'Istanbul', 'Dubai', 'Tokyo', 'Zurich', 'San Francisco', 
-  'Shanghai', 'San Diego', 'Tokyo', 'Beijing', 'Warsaw', 'Singapore', 'Paris', 'Miami', 'Dallas', 'Vienna',
-  'Mexico City', 'Los Angeles', 'Copenhagen', 'Berlin', 'London', 'Florence', 'Helsinki', 'Zurich', 'Oslo',
-  'Singapore', 'Buenos Aires', 'Kuala Lumpur', 'Tokyo', 'Barcelona', 'Toronto', 'Milan', 'Sydney', 'Osaka','Kalam', 'Sapa', 'Bhutan', 'Ulaanbaatar', 'Vang Vien', 'Lijiang', 'Chefchaouen', 'Kotor', 'Shiraz', 'Luang Prabang',
-  'Zermatt', 'Rishikesh', 'Machu Picchu', 'Lake Baikal', 'Cinque Terre', 'Rotorua', 'Bled', 'Victoria Falls', 'Aoraki Mount Cook',
-  'Kigali', 'Giza', 'Galle', 'Pushkar', 'Azerbaijan', 'Wadi Rum', 'Zanzibar', 'Antwerp', 'Valletta', 'Fes',
-  'Tbilisi', 'Kyrgyzstan', 'Galapagos Islands', 'Koh Lanta', 'Meteora', 'Komodo Island', 'Oaxaca', 'Abu Dhabi', 'Guilin',
-  'Ushuaia', 'Tulum', 'Punta Cana', 'Siem Reap', 'Marrakech', 'Baku', 'Cartagena', 'Salzburg', 'Ljubljana', 'Galle',
-  'Lagos', 'Lake Atitlan', 'Zanzibar', 'Antananarivo', 'Luanda', 'Cebu', 'Hvar', 'Byron Bay', 'Corsica', 'Vang Vien',
-  'Almaty', 'Bucharest', 'Piran', 'Lima', 'Kochi', 'Alexandria', 'San Pedro de Atacama', 'Manila', 'Marrakech', 'Patagonia',
-  'Medellin', 'Chichen Itza', 'Bali', 'Albuquerque', 'Fiji', 'Iquitos', 'Kangaroo Island', 'Guilin', 'Quebec City', 'Puno',
-  'Belem', 'Malawi', 'Quito', 'Cuzco', 'Rwanda', 'Colca Canyon', 'Tangier', 'Valencia', 'Palawan', 'Mount Roraima', 'The Dead Sea',
-  'Baños', 'Laos', 'Ethiopia', 'Taj Mahal', 'Madagascar', 'Salta', 'Punta Arenas', 'Morocco', 'Khiva', 'Azores', 'La Paz',
-  'Kazakhstan', 'Cabo Verde', 'Dushanbe', 'Novosibirsk', 'Shymbulak', 'Nicaragua', 'Kazakhstan', 'Kuala Lumpur', 'Crete',
-  'Manaus', 'Helsinki Archipelago', 'Pattaya', 'Vail', 'Colombia', 'Mount Fuji', 'Koh Samui', 'Kanchanaburi', 'Jaisalmer',
-  'Cusco', 'Guilin', 'Rajasthan', 'Laos', 'Tirana', 'Amalfi Coast', 'Kuala Lumpur', 'Gili Islands', 'Palawan', 'Sri Lanka',
-  'Hokkaido', 'Vang Vien', 'Cedar Forest', 'Cambodia', 'Kerala', 'Yogyakarta', 'Himachal Pradesh', 'Katmandu', 'Vancouver Island',
-  'Arusha', 'Zagreb', 'Namibia', 'Tanzania', 'Belgrade', 'Wellington', 'Inle Lake', 'Borneo', 'Kangaroo Island', 'Shiraz',
-  'Seychelles', 'Lijiang', 'Algeria', 'Sapa', 'Batumi', 'Tallinn', 'Luanda', 'Saigon', 'Cape Verde', 'Orvieto', 'Santiago',
-  'Lima', 'Banff', 'Oaxaca', 'Hiroshima', 'Tangier', 'Isla Holbox', 'Auckland', 'Panglao Island', 'Dubai', 'Fes', 'Lima',
-  'Patagonian Region', 'Giza', 'Saint Petersburg', 'Fes', 'Dakar', 'Cuzco', 'Zadar', 'South Luangwa', 'Santiago de Chile',
-  'Jordan Valley', 'Ibiza', 'Santa Teresa', 'Isla Mujeres', 'Hvar', 'Seoul', 'Zanzibar', 'Laguna Colorada', 'Lima', 'Iguaçu Falls',
-  'Bratislava', 'Barcelona', 'Bucovina', 'Pienza', 'Djemaa el Fna', 'Bucovina', 'Helsinki', 'Cancun', 'Sofia', 'Minsk',
-  'San Cristobal', 'Golden Temple', 'Sri Lanka', 'Victoria Falls', 'Patagonian Desert', 'Colca Canyon', 'Banff', 'Nairobi',
-  'Djerba', 'Oman', 'Tangiers', 'Curacao', 'Ibiza', 'Vladivostok', 'Taroko Gorge', 'Whistler', 'Rotorua', 'Santiago', 'Helsinki',
-  'Santa Marta', 'Iguaçu Falls', 'Gozo', 'Chichen Itza', 'Ain Sefra', 'Angkor Wat', 'Reykjavik', 'Riviera Maya', 'Arles', 
-  'Riga', 'Oaxaca', 'Andes', 'Kep', 'Uruguay', 'Alicante', 'Santiago', 'Vancouver', 'Zanzibar', 'Kavala', 'Cairo',
-  'Costa Brava', 'Barcelona', 'Kyoto', 'Oaxaca', 'Trinidad', 'Singapore', 'Giza', 'Buenos Aires', 'Sarajevo', 'Palawan', 'Tokyo','Islamabad', 'Lahore', 'Karachi', 'Rawalpindi', 'Peshawar', 'Quetta', 'Multan', 'Faisalabad', 'Sialkot', 'Gujranwala',
-  'Murree', 'Swat', 'Hunza', 'Skardu', 'Gilgit', 'Chitral', 'Fairy Meadows', 'Naran', 'Kaghan', 'Azad Kashmir', 
-  'Baltit Fort', 'Khunjerab Pass', 'Deosai National Park', 'Karimabad', 'Ranikot Fort', 'Makli Necropolis', 'Lahore Fort', 
-  'Badshahi Mosque', 'Minar-e-Pakistan', 'Shalimar Gardens', 'Walled City of Lahore', 'Mohenjo-Daro', 'Taxila', 'Khewra Salt Mine', 
-  'Faisal Mosque', 'Hingol National Park', 'Ratti Gali Lake', 'Shogran', 'Babusar Pass', 'Kaghan Valley', 'Shandur Pass', 
-  'Lake Saif ul Malook', 'Naltar Valley', 'Attabad Lake', 'Lulusar Lake', 'Tarbela Dam', 'Cholistan Desert', 'Thar Desert', 
-  'Mirpur', 'Naran Kaghan', 'Pindi Point', 'Malam Jabba', 'Peshawar Museum', 'Sawat Valley', 'Raja Bazar', 'Mohenjo Daro', 
-  'Kot Diji Fort', 'Lahore Museum', 'Rawat Fort', 'Pattoki', 'Derawar Fort', 'Kalash Valley', 'Pir Sohawa', 'Bolan Pass', 
-  'Karakoram Highway', 'Sikhs Gurdwaras', 'Waziristan', 'Islamabad National Park', 'Lahore Zoo', 'Toli Pir', 'Pind Dadan Khan', 
-  'Abbottabad', 'Ziarat', 'Jhelum', 'Harappa', 'Madhuri', 'Shandur Festival', 'Ziarat Juniper Forest', 'Sahibzada Baba', 
-  'Baba Farid Tomb', 'Nankana Sahib', 'Karachi Clifton Beach', 'Matiari', 'Ravi River', 'Halla', 'Tarkani', 'Faisalabad Clock Tower',
-  'Dhanisar', 'Kund Malir', 'Sikarpur', 'Chakwal', 'Nankana Sahib', 'Hassan Abdal', 'Mardan', 'Sargodha', 'Gorakh Hill', 
-  'Sawat River', 'Chilam', 'Peshawar Old City', 'Ziarat Hill', 'Hattar', 'Siri Paye', 'Muzaffarabad', 'Shahkot', 'Sargodha',
-  'Peshawar Bazaar', 'Saiful Malook Lake', 'Gilgit Baltistan', 'Bhimber', 'Hazar Khwani', 'Kachh', 'Gurdaspur', 'Chilas', 
-  'Eidgah', 'Karak', 'Wazirabad', 'Balochistan', 'Hingol National Park', 'Kohat', 'Mardan', 'Torkham', 'Risalpur', 'Dera Ismail Khan', 
-  'Karachi Gateway', 'Port Qasim', 'Bannu', 'Mirpurkhas', 'Kohat Fort', 'Kalat', 'Makran Coast', 'Gorakh Hill Station', 
-  'Pak-Afghan Border', 'Mushkpuri', 'Peshawar Fort', 'Fort Munro', 'Balakot', 'Wadi e Swat', 'Khaplu', 'Kalam Valley', 
-  'Ayubia National Park', 'Srinagar', 'Mansehra', 'Chitral Fort', 'Abbottabad Hills', 'Lahore Cantt', 'Bagh', 'Tarbelan Dam',
-  'Kallar Kahar', 'Attock', 'Jand', 'Murree Hills', 'Takht-i-Bahi', 'Rani Kot', 'Jhelum Fort', 'Shah Jahan Mosque', 'Pind Dadan Khan',
-  'Khanpur Dam', 'Kashmir Point', 'Malam Jabba Resort', 'Patriata', 'Murran', 'Kundar', 'Shankar Fort', 'Puran', 'Dargai',
-  'Pakpattan', 'Talagang', 'Rahim Yar Khan', 'Sahiwal', 'Dera Ghazi Khan', 'Khanewal', 'Sheikhupura', 'Kasur', 'Bhakkar', 
-  'Okara', 'Pattoki', 'Lodhran', 'Chiniot', 'Narowal', 'Mansehra', 'Mingora', 'Chaman', 'Sibi', 'Panjgur', 'Turbat', 'Kalat',
-  'Khuzdar', 'Pasni', 'Ormara', 'Gwadar', 'Nushki', 'Dera Ismail Khan', 'Hangu', 'Kurram Agency', 'Bajaur', 'Khyber Agency', 
-];
-      destinationInput.addEventListener('input', function() {
-        const query = destinationInput.value.toLowerCase();
-        destinationSuggestionsBox.innerHTML = '';
-        if (query) {
-          const filteredDestinations = destinations.filter(destination => destination.toLowerCase().includes(query));
-          filteredDestinations.forEach(destination => {
-            const suggestion = document.createElement('div');
-            suggestion.classList.add('autocomplete-suggestion');
-            suggestion.textContent = destination;
-            suggestion.addEventListener('click', function() {
-              destinationInput.value = destination;
-              destinationSuggestionsBox.innerHTML = '';
-            });
-            destinationSuggestionsBox.appendChild(suggestion);
-          });
-        }
-      });
-
-      document.addEventListener('click', function(event) {
-        if (!interestSuggestionsBox.contains(event.target) && event.target !== interestsInput) {
-          interestSuggestionsBox.innerHTML = '';
-        }
-        if (!destinationSuggestionsBox.contains(event.target) && event.target !== destinationInput) {
-          destinationSuggestionsBox.innerHTML = '';
-        }
-      });
-
-      const eventSource = new EventSource('http://localhost:3000/langchain/events');
-      eventSource.onmessage = function(event) {
-        const responseDiv = document.getElementById('response');
-        const travelForm = document.getElementById('travelForm');
-        travelForm.style.display = 'none';
-        responseDiv.innerHTML = event.data;
-      };
-
-      document.getElementById('travelForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const destination = document.getElementById('destination').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-        const interests = document.getElementById('interests').value;
-
-        const dates = `${new Date(startDate).toLocaleString('default', { month: 'short' })} ${new Date(startDate).getDate()}-${new Date(endDate).getDate()}`;
-
-        try {
-          await fetch('http://localhost:3000/langchain/process', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ destination, dates, interests })
-          });
-        } catch (error) {
-          console.error('Error processing query:', error);
-          document.getElementById('response').textContent = 'An error occurred while processing your request.';
-        }
-      });
-      
-    });
-  </script>
-</body>
+   <script src="script.js"></script>
+  </body>
 </html>
-
-

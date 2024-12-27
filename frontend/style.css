@@ -1,0 +1,454 @@
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+      }
+
+      .titleTravelBuddy {
+        text-align: center;
+        color: #000000;
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+
+      label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif; /* Modern, clean font */
+  text-transform: capitalize; /* Capitalize the first letter */
+  letter-spacing: 0.5px; /* Add a little spacing between letters */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+      input,
+      select {
+        width: 60%;
+        padding: 14px;
+        margin-bottom: 16px;
+        border: 1.5px solid #000000;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #555;
+        background-color: #fafafa;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #4caf50;
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+        outline: none;
+      }
+
+      input::placeholder {
+        color: #bbb;
+      }
+      form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; 
+}
+
+     
+      .continue-application {
+        margin-top: 10px;
+        --color: #fff;
+        --background: #404660;
+        --background-hover: #3a4059;
+        --background-left: #2b3044;
+        --folder: #f3e9cb;
+        --folder-inner: #beb393;
+        --paper: #ffffff;
+        --paper-lines: #bbc1e1;
+        --paper-behind: #e1e6f9;
+        --pencil-cap: #fff;
+        --pencil-top: #275efe;
+        --pencil-middle: #fff;
+        --pencil-bottom: #5c86ff;
+        --shadow: rgba(13, 15, 25, 0.2);
+        border: none;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 19px;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        padding: 17px 29px 17px 69px;
+        transition: background 0.3s;
+        color: var(--color);
+        background: var(--bg, var(--background));
+      }
+
+      .continue-application > div {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 53px;
+        position: absolute;
+        overflow: hidden;
+        border-radius: 5px 0 0 5px;
+        background: var(--background-left);
+      }
+
+      .continue-application > div .folder {
+        width: 23px;
+        height: 27px;
+        position: absolute;
+        left: 15px;
+        top: 13px;
+      }
+
+      .continue-application > div .folder .top {
+        left: 0;
+        top: 0;
+        z-index: 2;
+        position: absolute;
+        transform: translateX(var(--fx, 0));
+        transition: transform 0.4s ease var(--fd, 0.3s);
+      }
+
+      .continue-application > div .folder .top svg {
+        width: 24px;
+        height: 27px;
+        display: block;
+        fill: var(--folder);
+        transform-origin: 0 50%;
+        transition: transform 0.3s ease var(--fds, 0.45s);
+        transform: perspective(120px) rotateY(var(--fr, 0deg));
+      }
+
+      .continue-application > div .folder:before,
+      .continue-application > div .folder:after,
+      .continue-application > div .folder .paper {
+        content: '';
+        position: absolute;
+        left: var(--l, 0);
+        top: var(--t, 0);
+        width: var(--w, 100%);
+        height: var(--h, 100%);
+        border-radius: 1px;
+        background: var(--b, var(--folder-inner));
+      }
+
+      .continue-application > div .folder:before {
+        box-shadow:
+          0 1.5px 3px var(--shadow),
+          0 2.5px 5px var(--shadow),
+          0 3.5px 7px var(--shadow);
+        transform: translateX(var(--fx, 0));
+        transition: transform 0.4s ease var(--fd, 0.3s);
+      }
+
+      .continue-application > div .folder:after,
+      .continue-application > div .folder .paper {
+        --l: 1px;
+        --t: 1px;
+        --w: 21px;
+        --h: 25px;
+        --b: var(--paper-behind);
+      }
+
+      .continue-application > div .folder:after {
+        transform: translate(var(--pbx, 0), var(--pby, 0));
+        transition: transform 0.4s ease var(--pbd, 0s);
+      }
+
+      .continue-application > div .folder .paper {
+        z-index: 1;
+        --b: var(--paper);
+      }
+
+      .continue-application > div .folder .paper:before,
+      .continue-application > div .folder .paper:after {
+        content: '';
+        width: var(--wp, 14px);
+        height: 2px;
+        border-radius: 1px;
+        transform: scaleY(0.5);
+        left: 3px;
+        top: var(--tp, 3px);
+        position: absolute;
+        background: var(--paper-lines);
+        box-shadow:
+          0 12px 0 0 var(--paper-lines),
+          0 24px 0 0 var(--paper-lines);
+      }
+
+      .continue-application > div .folder .paper:after {
+        --tp: 6px;
+        --wp: 10px;
+      }
+
+      .continue-application > div .pencil {
+        height: 2px;
+        width: 3px;
+        border-radius: 1px 1px 0 0;
+        top: 8px;
+        left: 105%;
+        position: absolute;
+        z-index: 3;
+        transform-origin: 50% 19px;
+        background: var(--pencil-cap);
+        transform: translateX(var(--pex, 0)) rotate(35deg);
+        transition: transform 0.4s ease var(--pbd, 0s);
+      }
+
+      .continue-application > div .pencil:before,
+      .continue-application > div .pencil:after {
+        content: '';
+        position: absolute;
+        display: block;
+        background: var(
+          --b,
+          linear-gradient(
+            var(--pencil-top) 55%,
+            var(--pencil-middle) 55.1%,
+            var(--pencil-middle) 60%,
+            var(--pencil-bottom) 60.1%
+          )
+        );
+        width: var(--w, 5px);
+        height: var(--h, 20px);
+        border-radius: var(--br, 2px 2px 0 0);
+        top: var(--t, 2px);
+        left: var(--l, -1px);
+      }
+
+      .continue-application > div .pencil:before {
+        -webkit-clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+        clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+      }
+
+      .continue-application > div .pencil:after {
+        --b: none;
+        --w: 3px;
+        --h: 6px;
+        --br: 0 2px 1px 0;
+        --t: 3px;
+        --l: 3px;
+        border-top: 1px solid var(--pencil-top);
+        border-right: 1px solid var(--pencil-top);
+      }
+
+      .continue-application:before,
+      .continue-application:after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 2px;
+        border-radius: 1px;
+        background: var(--color);
+        transform-origin: 9px 1px;
+        transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+        top: 26px;
+        right: 16px;
+        transition: transform 0.3s;
+      }
+
+      .continue-application:after {
+        --r: 45deg;
+      }
+
+      .continue-application:hover {
+        --cx: 2px;
+        --bg: var(--background-hover);
+        --fx: -40px;
+        --fr: -60deg;
+        --fd: 0.15s;
+        --fds: 0s;
+        --pbx: 3px;
+        --pby: -3px;
+        --pbd: 0.15s;
+        --pex: -24px;
+      }
+
+      .autocomplete-suggestions {
+        border: 1px solid #f6f6f600;
+        background: #fff;
+        max-height: 250px;
+        overflow-y: auto;
+        z-index: 1000;
+        width: calc(100% - 500px);
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgb(0 0 0 / 26%);
+        margin-top: -1px;
+}
+
+.autocomplete-suggestion {
+  padding: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.autocomplete-suggestion:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 30px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
+
+      /* Flex container for date inputs */
+      .date-inputs {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .date-inputs div {
+        flex: 1;
+      }
+
+      input[type='date'] {
+        width: 100%;
+      }
+
+      /* Loader styles */
+      @keyframes blinkCursor {
+        50% {
+          border-right-color: transparent;
+        }
+      }
+
+      @keyframes typeAndDelete {
+        0%,
+        10% {
+          width: 0;
+        }
+        45%,
+        55% {
+          width: 6.2em;
+        }
+        90%,
+        100% {
+          width: 0;
+        }
+      }
+
+      .terminal-loader {
+        border: 0.1em solid #333;
+    background-color: #1a1a1a;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    padding: 1.5em 1em;
+    width: 30em;
+    margin: 10px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+      }
+
+      .terminal-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1.5em;
+        background-color: #333;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        padding: 0 0.4em;
+        box-sizing: border-box;
+      }
+
+      .terminal-controls {
+        float: right;
+      }
+
+      .control {
+        display: inline-block;
+        width: 0.6em;
+        height: 0.6em;
+        margin-left: 0.4em;
+        border-radius: 50%;
+        background-color: #777;
+      }
+
+      .control.close {
+        background-color: #e33;
+      }
+
+      .control.minimize {
+        background-color: #ee0;
+      }
+
+      .control.maximize {
+        background-color: #0b0;
+      }
+
+      .terminal-title {
+        float: left;
+        line-height: 1.5em;
+        color: #eee;
+      }
+
+      .text {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 0.2em solid green; /* Cursor */
+        animation:
+          typeAndDelete 8s steps(20) infinite,
+          blinkCursor 0.5s step-end infinite alternate;
+        margin-top: 1.5em;
+      }
+
+      .response-message {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.01);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }

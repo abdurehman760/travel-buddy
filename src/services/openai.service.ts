@@ -17,6 +17,6 @@ export class OpenAIService {
       messages: [{ role: 'user', content: params.prompt }],
       max_tokens: params.max_tokens,
     });
-    return response;
+    return response.choices[0].message.content;
   }
 }

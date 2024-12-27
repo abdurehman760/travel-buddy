@@ -1,0 +1,6 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json" // Ensure this points to the correct tsconfig.json
+  },
+  // ...existing configuration...
+}
