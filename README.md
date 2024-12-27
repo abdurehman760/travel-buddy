@@ -21,7 +21,7 @@ Watch the demo video to see Travel Buddy in action:
 ## Documention
 
 See Travel Buddy Documention:
-[Documention]([https://drive.google.com/file/d/1XwmoU2girszr9nqHslFpMS31Rcrmi90b/view?usp=drive_link](https://docs.google.com/document/d/1am548Ju3KRMok2oZOfdanVWyox-Y7P5SfFBhQuO3CDI/edit?tab=t.0))
+[Documention](https://drive.google.com/file/d/1XwmoU2girszr9nqHslFpMS31Rcrmi90b/view?usp=drive_link](https://docs.google.com/document/d/1am548Ju3KRMok2oZOfdanVWyox-Y7P5SfFBhQuO3CDI/edit?tab=t.0)
 
 
 ## Features
