@@ -18,10 +18,12 @@ Travel Buddy is a comprehensive travel planning application designed to help use
 Watch the demo video to see Travel Buddy in action:
 [Demo Video](https://drive.google.com/file/d/1XwmoU2girszr9nqHslFpMS31Rcrmi90b/view?usp=drive_link)
 
-## Documention
+## Documentation
 
-See Travel Buddy Documention:
-[Documention](https://drive.google.com/file/d/1XwmoU2girszr9nqHslFpMS31Rcrmi90b/view?usp=drive_link](https://docs.google.com/document/d/1am548Ju3KRMok2oZOfdanVWyox-Y7P5SfFBhQuO3CDI/edit?tab=t.0)
+See Travel Buddy Documentation:  
+[Documentation](https://docs.google.com/document/d/1am548Ju3KRMok2oZOfdanVWyox-Y7P5SfFBhQuO3CDI/edit?tab=t.0)
+
+
 
 
 ## Features
