@@ -179,9 +179,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    const eventSource = new EventSource(
-      'http://localhost:3000/langchain/events',
-    );
+    // Call the events endpoint when the page loads, refreshes, or reloads
+    const eventSource = new EventSource('http://localhost:3000/langchain/events');
     eventSource.onmessage = function (event) {
       const responseDiv = document.getElementById('response');
       const travelForm = document.getElementById('travelForm');

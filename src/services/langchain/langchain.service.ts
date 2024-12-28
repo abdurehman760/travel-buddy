@@ -34,18 +34,17 @@ export class LangChainService {
     Additionally, please suggest main tourist attractions or places to visit in ${userPreferences.destination}. These should be based on the destination's unique culture, landmarks, and popular spots. Avoid hardcoded suggestions and make them relevant to the destination.
 
     Create an itinerary where activities are planned to match the weather conditions and highlight key attractions for each day. Clearly explain how the weather will affect the planned activities for each day, and what the user can expect from visiting these locations.
-
-    Please format the response in HTML, using the following structure:
+    - Attention Only provide the HTML code for a styled ${userPreferences.destination}  trip itinerary, no explanations, just the code. Do not include any enclosing markdown blocks like \`\`\`html or \`\`\`."
+    -Please format the response in HTML, using the following structure:
     - Use <h2> for the day headers (e.g., Day 1, Day 2, etc.)
     - Use <ul> and <li> tags for listing activities or details for each day.
     - For weather information, use a <table> with columns for Weather, Max Temperature, Min Temperature, Sunrise, Sunset, and Daylight Duration.
     - Ensure the HTML is properly structured to display as an easily readable itinerary, add hyperlinks.
-
-    Style the page with modern design, enhancing the visual appeal of the itinerary. Ensure the style complements and provides an engaging experience for the user. Do not include any text other than the itinerary and only return HTML code.
+    Style the page with modern design, enhancing the visual appeal of the itinerary. Ensure the style complements and provides an engaging experience for the user.
     `;
 
     const response = await this.openaiService.complete({
-      model: 'gpt-4o-2024-11-20',
+      model: 'gpt-4o-mini-2024-07-18',
       prompt: prompt,
       max_tokens: 3000,
     });
